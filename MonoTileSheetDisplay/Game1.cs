@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using AnimatedSprite;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace MonoTileSheetDisplay
         SpriteBatch spriteBatch;
         int tileWidth = 64;
         int tileHeight = 64;
+        AnimateSheetSprite player;
 
         int[,] tileMap = new int[,]
     {
@@ -33,6 +35,8 @@ namespace MonoTileSheetDisplay
     };
         Texture2D _tileSheet;
         List<TileRef> _tileRefs = new List<TileRef>();
+        private RotatingSprite enemy;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -61,9 +65,30 @@ namespace MonoTileSheetDisplay
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _tileSheet = Content.Load<Texture2D>(@"Tiles\tank tiles 64 x 64");
-            _tileRefs.Add(new TileRef(1, 1, 0));
+            _tileRefs.Add(new TileRef(4, 2, 0));
             _tileRefs.Add(new TileRef(3, 3, 1));
             _tileRefs.Add(new TileRef(2, 2, 2));
+
+            List<TileRef> playerFrames = new List<TileRef>();
+            playerFrames.Add(new TileRef(15,0, 0));
+            playerFrames.Add(new TileRef(16,0, 0));
+            playerFrames.Add(new TileRef(17,0, 0));
+            playerFrames.Add(new TileRef(18, 0,0));
+            playerFrames.Add(new TileRef(19, 0,0));
+            playerFrames.Add(new TileRef(20,0, 0));
+            playerFrames.Add(new TileRef(21,0, 0));
+
+            player = new AnimateSheetSprite(new Vector2(0, 0), playerFrames, 64, 64, 1.0f);
+            List<TileRef> enemyFrames = new List<TileRef>();
+            enemyFrames.Add(new TileRef(20, 2, 0));
+            enemyFrames.Add(new TileRef(20, 3, 0));
+            enemyFrames.Add(new TileRef(20, 4, 0));
+            enemyFrames.Add(new TileRef(20, 5, 0));
+            enemyFrames.Add(new TileRef(20, 6, 0));
+            enemyFrames.Add(new TileRef(20, 7, 0));
+            enemyFrames.Add(new TileRef(20, 8, 0));
+
+            enemy = new RotatingSprite(new Vector2(5, 5), enemyFrames, 64, 64, 1.0f);
             // TODO: use this.Content to load your game content here
         }
 
@@ -85,7 +110,9 @@ namespace MonoTileSheetDisplay
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            enemy.Update(gameTime);
+            enemy.follow(player);
+            player.Update(gameTime);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -99,6 +126,7 @@ namespace MonoTileSheetDisplay
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
+            
             for (int x = 0; x < tileMap.GetLength(1); x++)
                 for (int y = 0; y < tileMap.GetLength(0); y++)
                 {
@@ -110,6 +138,8 @@ namespace MonoTileSheetDisplay
                         new Rectangle(tref._sheetPosX*tileWidth, tref._sheetPosY*tileHeight, tileWidth, tileHeight), // source rectangle
                         Color.White);
                 }
+            player.Draw(spriteBatch, _tileSheet);
+            enemy.Draw(spriteBatch, _tileSheet);
             spriteBatch.End();
             base.Draw(gameTime);
         }
