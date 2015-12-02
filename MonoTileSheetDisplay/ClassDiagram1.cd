@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AnimatedSprite.AnimateSheetSprite">
+    <Position X="1.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>iASAAAAAAAAAAgAAAAgAAABgkCAABEEIAAQACAAAgIE=</HashCode>
+      <FileName>Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimatedSprite.PlayerWithWeapon">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCgAAQCAAEggCAACIAAAQAAEIEAQQAAAAIAAEAAAA=</HashCode>
+      <FileName>PlayerWithWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileManagerNS.TileManager" Collapsed="true">
+    <Position X="8" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAABAAAAAAAACAAEAAAgAIEAUAQ=</HashCode>
+      <FileName>TileManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileManagerNS.Tile">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAIAAQAAAAAgCBAACAAAAEAAAAAABAAAQgAYBA=</HashCode>
+      <FileName>TileManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TileManagerNS.TileLayer" Collapsed="true">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAgABABAAAASAAACAAAAAAABIAAEAIAQAQEBQ=</HashCode>
+      <FileName>TileManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonoTileSheetDisplay.TileRef">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAGgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TileRef.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="AnimatedSprite.DIRECTION">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAICAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>PlayerWithWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AnimatedSprite.STATE">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAIAAA=</HashCode>
+      <FileName>PlayerWithWeapon.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
