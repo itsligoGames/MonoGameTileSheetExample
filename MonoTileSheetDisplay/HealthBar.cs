@@ -11,7 +11,7 @@ namespace MonoTileSheetDisplay
     {
         public int health;
         private Texture2D txHealthBar; // hold the texture
-        Vector2 position; // Position on the screen
+        public Vector2 position; // Position on the screen
         public Rectangle HealthRect
         {
             get

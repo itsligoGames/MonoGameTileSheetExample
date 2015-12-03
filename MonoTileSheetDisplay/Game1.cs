@@ -56,6 +56,7 @@ namespace MonoTileSheetDisplay
         private Camera cam;
         private TileManager _tManager;
         private SpriteFont _font;
+        HealthBar hbar;
 
         public Game1()
         {
@@ -77,6 +78,10 @@ namespace MonoTileSheetDisplay
                 new Vector2(tileMap.GetLength(1) * tileWidth,
                                 tileMap.GetLength(0) * tileHeight));
             new InputEngine(this);
+            hbar = new HealthBar(GraphicsDevice, new Vector2(20, 20));
+            Random r = new Random();
+            hbar.health = r.Next(10,100);
+
             base.Initialize();
         }
 
@@ -105,7 +110,7 @@ namespace MonoTileSheetDisplay
             _tManager.ActiveLayer = _tManager.getLayer("background");
             _tManager.ActiveLayer.makeImpassable(impassibleTiles);
             player.CurrentPlayerTile = _tManager.CurrentTile = _tManager.ActiveLayer.Tiles[0, 0];
-            
+            player.setHealthBar(GraphicsDevice);
             
 
             // TODO: use this.Content to load your game content here
@@ -243,7 +248,8 @@ namespace MonoTileSheetDisplay
             //spriteBatch.Begin();
             spriteBatch.Begin(SpriteSortMode.Immediate,
                     BlendState.AlphaBlend, null, null, null, null, cam.CurrentCameraTranslation);
-                        for (int x = 0; x < tileMap.GetLength(1); x++)
+            
+            for (int x = 0; x < tileMap.GetLength(1); x++)
                             for (int y = 0; y < tileMap.GetLength(0); y++)
                             {
                                 // Get the Tile reference from the current value at y,x
