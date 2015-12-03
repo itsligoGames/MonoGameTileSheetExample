@@ -41,6 +41,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="CrossHair.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="HealthBar.cs" />
     <Compile Include="InputEngine.cs" />
     <Compile Include="PlayerWithWeapon.cs" />
     <Compile Include="Program.cs" />
