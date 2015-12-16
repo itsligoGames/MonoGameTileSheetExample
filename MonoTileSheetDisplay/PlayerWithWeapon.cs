@@ -110,6 +110,7 @@ namespace AnimatedSprite
             _directionFrames.Add(new List<TileRef>()); // RIGHT
             _directionFrames.Add(new List<TileRef>()); // UP
             _directionFrames.Add(new List<TileRef>()); // Down All to be set by setFrameSet
+            Site = new CrossHair(userPosition, new List<TileRef>() { new TileRef(5,4,0) }, frameWidth, frameHeight, 0f);
             TileBound = tileBounds;
             }
 
@@ -188,9 +189,6 @@ namespace AnimatedSprite
         public override void Update(GameTime gameTime)
         {
 
-            // check for site change
-            //checkforMovement();
-            //Site.Update(gameTime);
             // Whenever the rocket is still and loaded it follows the player posiion
             if (MyProjectile != null && MyProjectile.ProjectileState == Projectile.PROJECTILE_STATE.STILL)
                 MyProjectile.Tileposition = this.Tileposition;
@@ -199,7 +197,7 @@ namespace AnimatedSprite
             {
                 // fire the rocket and it looks for the target
                 if(Keyboard.GetState().IsKeyDown(Keys.Space))
-                    MyProjectile.fire(Site.PixelPosition);
+                    MyProjectile.fire(Site.Tileposition);
             }
 
 
@@ -210,7 +208,7 @@ namespace AnimatedSprite
             if (MyProjectile != null)
                 MyProjectile.Update(gameTime);
             // Update the players site
-            //Site.Update(gameTime);
+            Site.Update(gameTime);
             // call Sprite Update to get it to animated 
             if(_playerHealthBar != null)
             {
@@ -224,7 +222,7 @@ namespace AnimatedSprite
         public override void Draw(SpriteBatch spriteBatch,Texture2D tx)
         {
             base.Draw(spriteBatch,tx);
-            //Site.Draw(spriteBatch,tx);
+            Site.Draw(spriteBatch,tx);
             if (MyProjectile != null && MyProjectile.ProjectileState != Projectile.PROJECTILE_STATE.STILL)
                     MyProjectile.Draw(spriteBatch,tx);
             if (_playerHealthBar != null)

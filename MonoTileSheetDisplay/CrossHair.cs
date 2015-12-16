@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoTileSheetDisplay;
+using Engine.Engines;
 
 namespace AnimatedSprite
 {
@@ -19,16 +20,17 @@ namespace AnimatedSprite
 
         public override void Update(GameTime gametime)
         {
-            
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (InputEngine.IsKeyPressed(Keys.D))
                 this.Tileposition += new Vector2(1, 0) ;
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (InputEngine.IsKeyPressed(Keys.A))
                 this.Tileposition += new Vector2(-1, 0);
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (InputEngine.IsKeyPressed(Keys.W))
                 this.Tileposition += new Vector2(0, -1);
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (InputEngine.IsKeyPressed(Keys.S))
                 this.Tileposition += new Vector2(0, 1) ;
             
+            
+
             // Make sure the Cross Hair stays in the bounds see previous lab for details
             //position = Vector2.Clamp(position, Vector2.Zero,
             //                                new Vector2(gameScreen.Width - spriteWidth,
@@ -39,7 +41,6 @@ namespace AnimatedSprite
 
         public override void Draw(SpriteBatch spriteBatch,Texture2D tx)
         {
-
             base.Draw(spriteBatch,tx);
         }
     }

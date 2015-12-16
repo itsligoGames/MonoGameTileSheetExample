@@ -36,7 +36,7 @@ namespace AnimatedSprite
                 Target = Vector2.Zero;
                 StartPosition = userPosition;
                 ProjectileState = PROJECTILE_STATE.STILL;
-                
+            explosion = new AnimateSheetSprite(userPosition, explosionRef, frameWidth, FrameHeight, 0.5f);
             }
             public override void Update(GameTime gametime)
             {
@@ -54,7 +54,7 @@ namespace AnimatedSprite
                          // rotate towards the Target
                         this.angleOfRotation = TurnToFace(PixelPosition,
                                                 Target, angleOfRotation, 1f);
-                    if (Vector2.Distance(PixelPosition, Target) < 2)
+                    if (Vector2.Distance(Tileposition, Target) < 0.01f)
                         projectileState = PROJECTILE_STATE.EXPOLODING;
                         break;
                     case PROJECTILE_STATE.EXPOLODING:

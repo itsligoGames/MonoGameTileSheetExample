@@ -98,7 +98,7 @@ namespace MonoTileSheetDisplay
             _tileRefs.Add(new TileRef(4, 2, 0));
             _tileRefs.Add(new TileRef(3, 3, 1));
             _tileRefs.Add(new TileRef(6, 3, 2));
-            _tileRefs.Add(new TileRef(6, 4, 3));
+            _tileRefs.Add(new TileRef(5, 1, 3));
             setupPlayer();
             setupEnemy();
 
@@ -127,7 +127,7 @@ namespace MonoTileSheetDisplay
             enemyFrames.Add(new TileRef(20, 7, 0));
             enemyFrames.Add(new TileRef(20, 8, 0));
 
-            enemy = new RotatingSprite(new Vector2(5, 5), enemyFrames, 64, 64, 1.0f);
+            enemy = new RotatingSprite(new Vector2(5, 5), enemyFrames, 64, 64, 1f);
 
         }
 
@@ -144,7 +144,7 @@ namespace MonoTileSheetDisplay
 
             player = new PlayerWithWeapon(new Vector2(0, 0), new Vector2(tileMap.GetLength(1),tileMap.GetLength(0)),
                             playerFrames,
-                            64, 64, 1.0f); // Default stopped
+                            64, 64, 0f); // Default stopped
 
             player.setFrameSet(DIRECTION.UP, playerFrames);
             player.setFrameSet(DIRECTION.DOWN, 
@@ -177,6 +177,24 @@ namespace MonoTileSheetDisplay
                     new TileRef(15, 7, 0),
                     new TileRef(15, 8, 0),
             });
+
+
+            // Load the players newly created projectile
+            player.loadProjectile(
+                new Projectile(player.Tileposition,
+                new List<TileRef>() // projectile tiles
+                {
+                    new TileRef(3,0,0),
+                    new TileRef(4,0,0),
+                    new TileRef(5,0,0),
+                    new TileRef(6,0,0),
+                },
+                new List<TileRef>() // explosion tiles
+                {
+                    new TileRef(0,0,0),
+                    new TileRef(1,0,0),
+                    new TileRef(2,0,0),
+                }, tileWidth, tileHeight, 0.5f));
         }
 
         /// <summary>
@@ -198,14 +216,6 @@ namespace MonoTileSheetDisplay
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //if(Keyboard.GetState().IsKeyDown(Keys.Enter))
-            //{
-            //    Tile CurrentTile = player.CurrentTilePostion;
-            //    List<Tile> surround = _tManager.ActiveLayer.adjacentPassible(CurrentTile);
-            //    player.CurrentTilePostion = surround[0];
-            //    player.Tileposition = new Vector2(player.CurrentTilePostion.X, player.CurrentTilePostion.Y);
-            //}
-            // Update enemy animation 
             enemy.Update(gameTime);
             // Turn towards the player
             enemy.follow(player);
@@ -244,9 +254,9 @@ namespace MonoTileSheetDisplay
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            //GraphicsDevice.Clear(Color.CornflowerBlue);
             //spriteBatch.Begin();
-            spriteBatch.Begin(SpriteSortMode.Immediate,
+            spriteBatch.Begin(SpriteSortMode.Deferred,
                     BlendState.AlphaBlend, null, null, null, null, cam.CurrentCameraTranslation);
             
             for (int x = 0; x < tileMap.GetLength(1); x++)
@@ -260,11 +270,11 @@ namespace MonoTileSheetDisplay
                                     new Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight), 
                                     new Rectangle(tref._sheetPosX*tileWidth, tref._sheetPosY*tileHeight, 
                                                     tileWidth, tileHeight), // source rectangle
-                                    Color.White);
+                                    Color.White,0,Vector2.Zero,SpriteEffects.None,1f);
                             }
             debugDraw();
-            player.Draw(spriteBatch, _tileSheet);
             enemy.Draw(spriteBatch, _tileSheet);
+            player.Draw(spriteBatch, _tileSheet);
             spriteBatch.End();
             base.Draw(gameTime);
         }
