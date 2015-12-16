@@ -243,8 +243,14 @@ namespace MonoTileSheetDisplay
                 _tManager.CurrentTile.X = player.CurrentPlayerTile.X;
                 _tManager.CurrentTile.Y = player.CurrentPlayerTile.Y;
             }
+            if(player.MyProjectile.ProjectileState == Projectile.PROJECTILE_STATE.EXPOLODING && player.MyProjectile.collisionDetect(enemy))
+            {
+                enemy.Visible = false;
+            }
             cam.follow(player.PixelPosition,
                              GraphicsDevice.Viewport);
+
+
             base.Update(gameTime);
         }
 
